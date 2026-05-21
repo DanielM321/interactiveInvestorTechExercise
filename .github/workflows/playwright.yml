@@ -1,27 +1,78 @@
-name: Playwright Tests
+name: Playwright Tests For interactive investor tech exercise
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
+  schedule:
+    - cron: "0 22 * * *" # Runs every day at 10pm
 jobs:
-  test:
+  playwright-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      # split tests into 4 shards to run in parallel
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+      # Install npm dependencies
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm i @faker-js/faker
+          npm i date-fns
+          npm i dotenv
+          npm i node-venv
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      # Whenever a pull request is submitted, run only the tests that have changed compared to the base branch. After merge, run all tests.
+      - name: Run changed Playwright tests on pull request
+        run: npx playwright test --only-changed=origin/$GITHUB_BASE_REF --workers=4 --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        if: github.event_name == 'pull_request'
+      - name: Run All Playwright tests after merge
+        run: npx playwright test --workers=4 --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        if: github.event_name == 'push'
+      #Create playwright report in each shard
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: blob-report-${{ matrix.shardIndex }}-of-${{ matrix.shardTotal }}
+          path: blob-report
+          retention-days: 14
+  # Merge playwright reports from all shards into a single HTML report, even if some shards have failed, and upload it as an artifact
+  merge-reports:
+    # Merge reports after playwright-tests, even if some shards have failed
+    if: ${{ !cancelled() }}
+    needs: [playwright-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v7
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+      - name: Merge into HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v7
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14
