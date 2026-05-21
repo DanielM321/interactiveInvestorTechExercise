@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { format } from "date-fns";
 
-export function createRandomCustomer() {
+export function createRandomUser() {
   const currentDateAndTime = format(new Date(), "yyyyMMddHHmmss");
   //Only a limited subset of Countries in the Country drop down
   const countries: string[] = [

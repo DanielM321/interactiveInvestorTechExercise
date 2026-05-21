@@ -3,12 +3,14 @@ import { SignupLoginPage } from "../pages/signupLoginPage";
 import { Navigation } from "../pages/navigation/navigation";
 import { HomePage } from "../pages/homePage";
 import { AccountInformationPage } from "../pages/accountInformationPage";
+import { AccountCreatedPage } from "../pages/accountCreatedPage";
 
 export type PageObjectFixtures = {
   readonly navigation: Navigation;
   readonly homePage: HomePage;
   readonly signupLoginPage: SignupLoginPage;
   readonly accountInformationPage: AccountInformationPage;
+  readonly accountCreatedPage: AccountCreatedPage;
 };
 
 export const test = base.extend<PageObjectFixtures>({
@@ -27,6 +29,10 @@ export const test = base.extend<PageObjectFixtures>({
   accountInformationPage: async ({ page }, use) => {
     const accountInformationPage = new AccountInformationPage(page);
     await use(accountInformationPage);
+  },
+  accountCreatedPage: async ({ page }, use) => {
+    const accountCreatedPage = new AccountCreatedPage(page);
+    await use(accountCreatedPage);
   },
 });
 

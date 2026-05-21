@@ -2,10 +2,12 @@ import { Locator, Page } from "@playwright/test";
 
 export class Navigation {
   readonly signupLoginLink: Locator;
+  readonly logoutLink: Locator;
   readonly cookieConsentButton: Locator;
 
   constructor(page: Page) {
     this.signupLoginLink = page.locator('[href="/login"]');
+    this.logoutLink = page.locator('[href="/logout"]');
     this.cookieConsentButton = page.getByRole("button", { name: "Consent" });
   }
 
