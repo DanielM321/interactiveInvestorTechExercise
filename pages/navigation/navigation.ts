@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 
-export class NavigationMenu {
+export class Navigation {
   readonly signupLoginLink: Locator;
   readonly cookieConsentButton: Locator;
 

@@ -1,7 +1,14 @@
 import { expect, test } from "../Fixtures/PageObjectFixtures";
+import { createRandomUser } from "../helpers/createRandomData";
 
-test("Register New User", async ({ page, navigationMenu }) => {
-  await page.goto("https://automationexercise.com/");
-  await navigationMenu.acceptCookies();
-  await navigationMenu.signupLoginLink.click();
+const randomCustomer = createRandomUser();
+
+test("Register New User", async ({ homePage, navigation, signupLoginPage }) => {
+  await homePage.navigateToHomePage();
+  await navigation.acceptCookies();
+  await navigation.signupLoginLink.click();
+  await signupLoginPage.populateSignupForm(
+    randomCustomer.fullName,
+    randomCustomer.email,
+  );
 });

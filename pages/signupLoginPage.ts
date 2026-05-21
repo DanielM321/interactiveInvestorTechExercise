@@ -16,4 +16,10 @@ export class SignupLoginPage {
     this.loginPasswordField = page.locator('[data-qa="login-password"]');
     this.loginButton = page.locator('[data-qa="login-button"]');
   }
+
+  async populateSignupForm(name: string, email: string) {
+    await this.nameField.fill(name);
+    await this.signupEmailField.fill(email);
+    await this.signupButton.click();
+  }
 }

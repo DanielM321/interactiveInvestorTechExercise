@@ -1,16 +1,22 @@
 import { test as base } from "@playwright/test";
 import { SignupLoginPage } from "../pages/signupLoginPage";
-import { NavigationMenu } from "../pages/navigation/navigationMenu";
+import { Navigation } from "../pages/navigation/navigation";
+import { HomePage } from "../pages/homePage";
 
 export type PageObjectFixtures = {
+  readonly navigation: Navigation;
+  readonly homePage: HomePage;
   readonly signupLoginPage: SignupLoginPage;
-  readonly navigationMenu: NavigationMenu;
 };
 
 export const test = base.extend<PageObjectFixtures>({
-  navigationMenu: async ({ page }, use) => {
-    const navigationMenu = new NavigationMenu(page);
-    await use(navigationMenu);
+  navigation: async ({ page }, use) => {
+    const navigation = new Navigation(page);
+    await use(navigation);
+  },
+  homePage: async ({ page }, use) => {
+    const homePage = new HomePage(page);
+    await use(homePage);
   },
   signupLoginPage: async ({ page }, use) => {
     const signupLoginPage = new SignupLoginPage(page);
