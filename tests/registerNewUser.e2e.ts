@@ -10,7 +10,7 @@ test("Register New User", async ({
   accountInformationPage,
   accountCreatedPage,
 }) => {
-  await test.step("Given I navigate to Signup/Login page", async () => {
+  await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
     await navigation.acceptCookies();
   });

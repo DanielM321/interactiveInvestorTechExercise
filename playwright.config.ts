@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 import { PageObjectFixtures } from "./Fixtures/PageObjectFixtures";
+import { productData } from "./data";
 
 export default defineConfig<PageObjectFixtures>({
   testDir: "./tests",
@@ -17,19 +18,19 @@ export default defineConfig<PageObjectFixtures>({
     {
       name: "chromium",
       testMatch: /.*\.e2e\.ts/,
-      use: { ...devices["Desktop Chrome"] },
+      use: { ...devices["Desktop Chrome"], productData: productData.testEnv },
     },
 
     {
       name: "firefox",
       testMatch: /.*\.e2e\.ts/,
-      use: { ...devices["Desktop Firefox"] },
+      use: { ...devices["Desktop Firefox"], productData: productData.testEnv },
     },
 
     {
       name: "webkit",
       testMatch: /.*\.e2e\.ts/,
-      use: { ...devices["Desktop Safari"] },
+      use: { ...devices["Desktop Safari"], productData: productData.testEnv },
     },
   ],
 });
