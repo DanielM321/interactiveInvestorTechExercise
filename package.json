@@ -1,0 +1,23 @@
+{
+  "name": "interactiveinvestortechexercise",
+  "version": "1.0.0",
+  "description": "Repository for sharing my solution to the interactive investor technical exercise",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielM321/interactiveInvestorTechExercise.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DanielM321/interactiveInvestorTechExercise/issues"
+  },
+  "homepage": "https://github.com/DanielM321/interactiveInvestorTechExercise#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.1"
+  }
+}
