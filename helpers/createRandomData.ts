@@ -16,24 +16,16 @@ export function createRandomUser() {
     "New Zealand",
     "Singapore",
   ];
+  let birthDate = faker.date.birthdate({ min: 18, max: 80, mode: "age" });
   return {
     gender: faker.person.gender(),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     email: `test${currentDateAndTime}@test.com`,
     password: faker.internet.password(),
-    dayOfBirth: faker.date
-      .birthdate({ min: 18, max: 80, mode: "age" })
-      .getDate()
-      .toString(),
-    monthOfBirth: faker.date
-      .birthdate({ min: 18, max: 80, mode: "age" })
-      .getMonth()
-      .toString(),
-    yearOfBirth: faker.date
-      .birthdate({ min: 18, max: 80, mode: "age" })
-      .getFullYear()
-      .toString(),
+    dayOfBirth: birthDate.getDate().toString(),
+    monthOfBirth: birthDate.getMonth().toString(),
+    yearOfBirth: birthDate.getFullYear().toString(),
     signUpForNewsletter: faker.datatype.boolean(),
     receiveSpecialOffers: faker.datatype.boolean(),
     company: faker.company.name(),
