@@ -1,6 +1,9 @@
 import { Locator, Page } from "@playwright/test";
 import { CartTable } from "./tables/cartTable";
 
+/**
+ * This class is the page object model for the checkout page which appears after a user clicks the "Proceed To Checkout" button from the cart page.
+ */
 export class CheckoutPage {
   readonly deliveryAddress: Locator;
   readonly invoiceAddress: Locator;

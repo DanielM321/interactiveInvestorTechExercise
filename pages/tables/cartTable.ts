@@ -7,6 +7,9 @@ type CartItem = {
   total: string;
 };
 
+/**
+ * This class is for the page object model for the cart product table which appears in both the cart page and the checkout page
+ */
 export class CartTable {
   readonly firstCartItem: Locator;
   readonly firstCartDescription: Locator;

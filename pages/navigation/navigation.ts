@@ -1,5 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 
+/**
+ * This class is the page object model for the navigation menu at the top of the page which is visible from all other pages
+ */
 export class Navigation {
   readonly productsLink: Locator;
   readonly signupLoginLink: Locator;

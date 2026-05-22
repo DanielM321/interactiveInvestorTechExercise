@@ -23,30 +23,13 @@ export default defineConfig<PageObjectFixtures>({
   },
 
   projects: [
-    // {
-    //   name: "registerUserChrome",
-    //   testMatch: /.*\.reg\.ts/,
-    //   use: { ...devices["Desktop Chrome"], productData: productData.testEnv },
-    // },
-    // {
-    //   name: "registerUserFirefox",
-    //   testMatch: /.*\.reg\.ts/,
-    //   use: { ...devices["Desktop Firefox"], productData: productData.testEnv },
-    // },
-    // {
-    //   name: "registerUserWebkit",
-    //   testMatch: /.*\.reg\.ts/,
-    //   use: { ...devices["Desktop Safari"], productData: productData.testEnv },
-    // },
     {
       name: "chromium",
       testMatch: /.*\.e2e\.ts/,
       use: {
         ...devices["Desktop Chrome"],
         productData: productData.testEnv,
-        //storageState: `playwright/.auth/chromium/user.json`,
       },
-      //dependencies: ["registerUserChrome"],
     },
 
     {
@@ -55,9 +38,7 @@ export default defineConfig<PageObjectFixtures>({
       use: {
         ...devices["Desktop Firefox"],
         productData: productData.testEnv,
-        //storageState: `playwright/.auth/firefox/user.json`,
       },
-      //dependencies: ["registerUserFirefox"],
     },
 
     {
@@ -66,9 +47,7 @@ export default defineConfig<PageObjectFixtures>({
       use: {
         ...devices["Desktop Safari"],
         productData: productData.testEnv,
-        //storageState: `playwright/.auth/webkit/user.json`,
       },
-      //dependencies: ["registerUserWebkit"],
     },
   ],
 });

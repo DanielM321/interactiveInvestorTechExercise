@@ -4,7 +4,10 @@
   "description": "Repository for sharing my solution to the interactive investor technical exercise",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test"
+    "pw-test-chromium": "npx playwright test --project=\"chromium\" --workers=4",
+    "pw-test-firefox": "npx playwright test --project=\"firefox\" --workers=4",
+    "pw-test-webkit": "npx playwright test --project=\"webkit\" --workers=4",
+    "pw-test-all": "npx playwright test --workers=4"
   },
   "repository": {
     "type": "git",

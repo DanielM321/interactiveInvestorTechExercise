@@ -1,5 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 
+/**
+ * This class is the page object model for the signup/login page which appears after a user clicks on the "Signup / Login" button in the navigation bar
+ */
 export class SignupLoginPage {
   readonly nameField: Locator;
   readonly signupEmailField: Locator;

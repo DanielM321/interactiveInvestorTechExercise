@@ -1,9 +1,12 @@
 import { faker } from "@faker-js/faker";
 import { format } from "date-fns";
 
+/**
+ * Using the faker library we generate a random user than can be used to populate the registration form when registering a new user
+ */
 export function createRandomUser() {
   const currentDateAndTime = format(new Date(), "yyyyMMddHHmmss");
-  //Only a limited subset of Countries in the Country drop down
+  //Only a limited subset of Countries in the Country drop down within the application
   const countries: string[] = [
     "India",
     "United States",
@@ -36,7 +39,7 @@ export function createRandomUser() {
     company: faker.company.name(),
     addressLine1: faker.location.streetAddress(),
     addressLine2: faker.location.secondaryAddress(),
-    //Select a random country from the list of countries
+    //Select a random country from the array of countries
     country: countries[Math.floor(Math.random() * countries.length)],
     state: faker.location.state(),
     city: faker.location.city(),
