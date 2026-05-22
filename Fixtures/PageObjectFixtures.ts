@@ -8,6 +8,9 @@ import { productData, ProductDataCollection } from "../data";
 import { ProductsPage } from "../pages/productsPage";
 import { ProductInfoPage } from "../pages/productInfoPage";
 import { CartPage } from "../pages/cartPage";
+import { CheckoutPage } from "../pages/checkoutPage";
+import { PaymentPage } from "../pages/paymentPage";
+import { OrderConfirmationPage } from "../pages/orderConfirmationPage";
 
 export type PageObjectFixtures = {
   readonly navigation: Navigation;
@@ -18,7 +21,10 @@ export type PageObjectFixtures = {
   readonly productsPage: ProductsPage;
   readonly productInfoPage: ProductInfoPage;
   readonly cartPage: CartPage;
+  readonly checkoutPage: CheckoutPage;
   readonly productData: ProductDataCollection;
+  readonly paymentPage: PaymentPage;
+  readonly orderConfirmationPage: OrderConfirmationPage;
 };
 
 export const test = base.extend<PageObjectFixtures>({
@@ -53,6 +59,18 @@ export const test = base.extend<PageObjectFixtures>({
   cartPage: async ({ page }, use) => {
     const cartPage = new CartPage(page);
     await use(cartPage);
+  },
+  checkoutPage: async ({ page }, use) => {
+    const checkoutPage = new CheckoutPage(page);
+    await use(checkoutPage);
+  },
+  paymentPage: async ({ page }, use) => {
+    const paymentPage = new PaymentPage(page);
+    await use(paymentPage);
+  },
+  orderConfirmationPage: async ({ page }, use) => {
+    const orderConfirmationPage = new OrderConfirmationPage(page);
+    await use(orderConfirmationPage);
   },
   productData: [productData.testEnv, { option: true }],
 });
