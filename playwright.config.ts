@@ -12,11 +12,11 @@ if (!process.env.NODE_ENV) {
 
 export default defineConfig<PageObjectFixtures>({
   testDir: "./tests",
+  reporter: process.env.CI ? "blob" : "html",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: "html",
   use: {
     trace: "on-first-retry",
     testIdAttribute: "id",
