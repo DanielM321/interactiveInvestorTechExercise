@@ -1,6 +1,9 @@
 import { Locator, Page } from "@playwright/test";
 import { CartModal } from "./modals/cartModal";
 
+/**
+ * This class is the page object model for the product information page which appears after a user clicks on view product
+ */
 export class ProductInfoPage {
   readonly quantityField: Locator;
   readonly addtoCartButton: Locator;
@@ -12,6 +15,10 @@ export class ProductInfoPage {
     this.addedToCartModal = new CartModal(page);
   }
 
+  /**
+   * Select a quantity of the product using the quantity field and click the add to cart button
+   * @param quantity The number of the item you want to add to the cart
+   */
   async addProductToCart(quantity: string) {
     await this.quantityField.fill(quantity);
     await this.addtoCartButton.click();

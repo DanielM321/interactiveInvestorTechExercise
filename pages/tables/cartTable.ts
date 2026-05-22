@@ -7,6 +7,9 @@ type CartItem = {
   total: string;
 };
 
+/**
+ * This class is for the page object model for the cart product table which appears in both the cart page and the checkout page
+ */
 export class CartTable {
   readonly firstCartItem: Locator;
   readonly firstCartDescription: Locator;
@@ -39,6 +42,12 @@ export class CartTable {
     };
   }
 
+  /**
+   * Calculate the total for an item based on the price for one unit multiplied by the quantity of the item
+   * @param price the cost of one of the item
+   * @param quantity the number of the item being purchased
+   * @returns the number of the item multiplied by the price for one unit of the item
+   */
   async calculateTotalForItem(
     price: number,
     quantity: number,

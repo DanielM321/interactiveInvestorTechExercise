@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 
+/** This is the page object model for the confirmation page that appears after a user successfully creates an account */
 export class AccountCreatedPage {
   readonly heading: Locator;
   readonly body: Locator;

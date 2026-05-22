@@ -21,6 +21,9 @@ type AccountInformation = {
   mobileNumber: string;
 };
 
+/**
+ * This is the class to represent the account information form that appear once you chose to register as a new user
+ */
 export class AccountInformationPage {
   readonly maleRadioBuitton: Locator;
   readonly femaleRadioButton: Locator;
@@ -68,6 +71,10 @@ export class AccountInformationPage {
     this.createAccountButton = page.locator('[data-qa="create-account"]');
   }
 
+  /**
+   * Populates the account information form with the provided data and clicks the create account button
+   * @param accountInfo A JSON object containing all fields that are needed to complete the account information form
+   */
   async populateAccountInformationForm(accountInfo: AccountInformation) {
     if (accountInfo.gender === "male") {
       await this.maleRadioBuitton.check();

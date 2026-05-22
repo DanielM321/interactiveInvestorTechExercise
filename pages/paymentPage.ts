@@ -8,6 +8,9 @@ type cardDetails = {
   expiryYear: string;
 };
 
+/**
+ * This class is the page object model for the payment page which appears after a user clicks the "Place Order" button from the checkout page
+ */
 export class PaymentPage {
   readonly nameOnCardField: Locator;
   readonly cardNumberField: Locator;
@@ -25,6 +28,10 @@ export class PaymentPage {
     this.payAndConfirmOrderButton = page.getByTestId("submit");
   }
 
+  /**
+   * Populate the payment form with the card details provided and click the Pay and Confirm button
+   * @param cardDetails A JSON object containing the name on card, card number, cvc, expiry month and expiry year to be used to populate the payment form
+   */
   async submitPaymentDetails(cardDetails: cardDetails) {
     await this.nameOnCardField.fill(cardDetails.nameOnCard);
     await this.cardNumberField.fill(cardDetails.cardNumber);

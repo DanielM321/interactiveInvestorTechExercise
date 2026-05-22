@@ -1,6 +1,6 @@
 import { expect, test } from "../Fixtures/PageObjectFixtures";
 
-test("Search for a product and add to cart", async ({
+test("Search for a product and add in to cart", async ({
   homePage,
   navigation,
   productsPage,
