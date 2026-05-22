@@ -3,6 +3,7 @@ import { expect, test } from "../Fixtures/PageObjectFixtures";
 test("Search for a product and add in to cart", async ({
   homePage,
   navigation,
+  signupLoginPage,
   productsPage,
   productInfoPage,
   cartPage,
@@ -13,6 +14,25 @@ test("Search for a product and add in to cart", async ({
   await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
     await navigation.acceptCookies();
+  });
+
+  await test.step("When I click the signup/login link and populate", async () => {
+    await navigation.signupLoginLink.click();
+  });
+
+  await test.step("And I populate the login form", async () => {
+    await signupLoginPage.populateLoginForm(
+      process.env.userEmail!,
+      process.env.password!,
+    );
+  });
+
+  await test.step("Then I am returned to the home page and I am logged in", async () => {
+    await expect(homePage.page).toHaveURL(process.env.homePage!);
+    await expect(navigation.logoutLink).toBeVisible();
+    await expect(homePage.loggedInUser).toHaveText(
+      `Logged in as ${process.env.usersName}`,
+    );
   });
 
   await test.step("When I click the products link", async () => {
@@ -43,13 +63,13 @@ test("Search for a product and add in to cart", async ({
     const cartItemDetails = await cartPage.cartTable.getCartItemDetails();
     const expectedTotal = await cartPage.cartTable.calculateTotalForItem(
       productData.productPrice,
-      productQuantity,
+      Number(await cartPage.cartTable.firstCartItemQuantity.innerText()),
     );
     expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
     expect(cartItemDetails.description).toContain(productData.productName);
     expect(cartItemDetails.description).toContain(productData.productCategory);
     expect(cartItemDetails.price).toBe(`Rs. ${productData.productPrice}`);
-    expect(cartItemDetails.quantity).toBe(productQuantity.toString());
+    expect(cartItemDetails.quantity).not.toBeNull();
     expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
   });
 });

@@ -15,14 +15,6 @@ test("Register New User", async ({
     await navigation.acceptCookies();
   });
 
-  await test.step("When I click the logout link", async () => {
-    await navigation.logoutLink.click();
-  });
-
-  await test.step("Then I am logged out and returned to the signup / login page", async () => {
-    await expect(homePage.page).toHaveURL(`${process.env.homePage}/login`);
-  });
-
   await test.step("When I click the signup/login link and populate", async () => {
     await navigation.signupLoginLink.click();
   });

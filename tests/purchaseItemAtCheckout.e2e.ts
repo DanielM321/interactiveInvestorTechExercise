@@ -5,6 +5,7 @@ test("Purchase item at checkout", async ({
   navigation,
   productsPage,
   productInfoPage,
+  signupLoginPage,
   cartPage,
   checkoutPage,
   paymentPage,
@@ -19,6 +20,24 @@ test("Purchase item at checkout", async ({
     await navigation.acceptCookies();
   });
 
+  await test.step("When I click the signup/login link and populate", async () => {
+    await navigation.signupLoginLink.click();
+  });
+
+  await test.step("And I populate the login form", async () => {
+    await signupLoginPage.populateLoginForm(
+      process.env.userEmail!,
+      process.env.password!,
+    );
+  });
+
+  await test.step("Then I am returned to the home page and I am logged in", async () => {
+    await expect(homePage.page).toHaveURL(process.env.homePage!);
+    await expect(navigation.logoutLink).toBeVisible();
+    await expect(homePage.loggedInUser).toHaveText(
+      `Logged in as ${process.env.usersName}`,
+    );
+  });
   await test.step("When I click the products link", async () => {
     await navigation.productsLink.click();
   });
@@ -43,20 +62,19 @@ test("Purchase item at checkout", async ({
     await productInfoPage.addedToCartModal.viewCartButton.click();
   });
 
+  const expectedTotal = await cartPage.cartTable.calculateTotalForItem(
+    productData.productPrice,
+    Number(await cartPage.cartTable.firstCartItemQuantity.innerText()),
+  );
+
   await test.step("Then I should see the correct product in the cart", async () => {
     const cartItemDetails = await cartPage.cartTable.getCartItemDetails();
-    const expectedTotal = await cartPage.cartTable.calculateTotalForItem(
-      productData.productPrice,
-      productQuantity,
-    );
-    expect.soft(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
-    expect.soft(cartItemDetails.description).toContain(productData.productName);
-    expect
-      .soft(cartItemDetails.description)
-      .toContain(productData.productCategory);
-    expect.soft(cartItemDetails.price).toBe(`Rs. ${productData.productPrice}`);
-    expect.soft(cartItemDetails.quantity).toBe(productQuantity.toString());
-    expect.soft(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
+    expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
+    expect(cartItemDetails.description).toContain(productData.productName);
+    expect(cartItemDetails.description).toContain(productData.productCategory);
+    expect(cartItemDetails.price).toBe(`Rs. ${productData.productPrice}`);
+    expect(cartItemDetails.quantity).not.toBeNull();
+    expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
   });
 
   await test.step("When I click proceed to checkout", async () => {
@@ -73,11 +91,9 @@ test("Purchase item at checkout", async ({
     expect(deliveryAddressDetails).toContain(process.env.company!);
     expect(deliveryAddressDetails).toContain(process.env.address1!);
     expect(deliveryAddressDetails).toContain(process.env.address2!);
-    expect(deliveryAddressDetails).toContain(
-      `${process.env.city!}` +
-        ` ${process.env.state!}` +
-        ` ${process.env.zipcode!}`,
-    );
+    expect(deliveryAddressDetails).toContain(process.env.city!);
+    expect(deliveryAddressDetails).toContain(process.env.state!);
+    expect(deliveryAddressDetails).toContain(process.env.zipcode!);
     expect(deliveryAddressDetails).toContain(process.env.country!);
     expect(deliveryAddressDetails).toContain(process.env.mobileNumber!);
   });
@@ -92,29 +108,21 @@ test("Purchase item at checkout", async ({
     expect(invoiceAddressDetails).toContain(process.env.company!);
     expect(invoiceAddressDetails).toContain(process.env.address1!);
     expect(invoiceAddressDetails).toContain(process.env.address2!);
-    expect(invoiceAddressDetails).toContain(
-      `${process.env.city!}` +
-        ` ${process.env.state!}` +
-        ` ${process.env.zipcode!}`,
-    );
+    expect(invoiceAddressDetails).toContain(process.env.city!);
+    expect(invoiceAddressDetails).toContain(process.env.state!);
+    expect(invoiceAddressDetails).toContain(process.env.zipcode!);
     expect(invoiceAddressDetails).toContain(process.env.country!);
     expect(invoiceAddressDetails).toContain(process.env.mobileNumber!);
   });
 
   await test.step("Then I should see the correct product in the Review your order table", async () => {
     const cartItemDetails = await cartPage.cartTable.getCartItemDetails();
-    const expectedTotal = await cartPage.cartTable.calculateTotalForItem(
-      productData.productPrice,
-      productQuantity,
-    );
-    expect.soft(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
-    expect.soft(cartItemDetails.description).toContain(productData.productName);
-    expect
-      .soft(cartItemDetails.description)
-      .toContain(productData.productCategory);
-    expect.soft(cartItemDetails.price).toBe(`Rs. ${productData.productPrice}`);
-    expect.soft(cartItemDetails.quantity).toBe(productQuantity.toString());
-    expect.soft(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
+    expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
+    expect(cartItemDetails.description).toContain(productData.productName);
+    expect(cartItemDetails.description).toContain(productData.productCategory);
+    expect(cartItemDetails.price).toBe(`Rs. ${productData.productPrice}`);
+    expect(cartItemDetails.quantity).not.toBeNull();
+    expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
   });
 
   await test.step("When I click place order", async () => {

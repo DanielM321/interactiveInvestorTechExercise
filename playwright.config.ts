@@ -16,7 +16,7 @@ export default defineConfig<PageObjectFixtures>({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 4 : 4,
   reporter: process.env.CI ? "blob" : "html",
   use: {
     trace: "on-first-retry",
@@ -25,50 +25,20 @@ export default defineConfig<PageObjectFixtures>({
 
   projects: [
     {
-      name: "setupChromium",
-      testMatch: /.*\.auth\.ts/,
-      use: {
-        ...devices["Desktop Chrome"],
-        productData: productData.testEnv,
-      },
-    },
-    {
-      name: "setupFirefox",
-      testMatch: /.*\.auth\.ts/,
-      use: {
-        ...devices["Desktop Firefox"],
-        productData: productData.testEnv,
-      },
-    },
-    {
-      name: "setupWebkit",
-      testMatch: /.*\.auth\.ts/,
-      use: {
-        ...devices["Desktop Safari"],
-        productData: productData.testEnv,
-      },
-    },
-    {
       name: "chromium",
       testMatch: /.*\.e2e\.ts/,
       use: {
         ...devices["Desktop Chrome"],
         productData: productData.testEnv,
-        // Use the chromium storage state file for the chromium project
-        storageState: `playwright/.auth/chromium/user.json`,
       },
-      dependencies: ["setupChromium"],
     },
-
     {
       name: "firefox",
       testMatch: /.*\.e2e\.ts/,
       use: {
         ...devices["Desktop Firefox"],
         productData: productData.testEnv,
-        storageState: `playwright/.auth/firefox/user.json`,
       },
-      dependencies: ["setupFirefox"],
     },
 
     {
@@ -77,9 +47,7 @@ export default defineConfig<PageObjectFixtures>({
       use: {
         ...devices["Desktop Safari"],
         productData: productData.testEnv,
-        storageState: `playwright/.auth/webkit/user.json`,
       },
-      dependencies: ["setupWebkit"],
     },
   ],
 });

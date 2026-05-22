@@ -1,18 +1,10 @@
-import path from "path";
 import { expect, test } from "../Fixtures/PageObjectFixtures";
 
-test("Log in", async ({
-  page,
+test("Log in and log out", async ({
   homePage,
   navigation,
   signupLoginPage,
-  browserName,
 }) => {
-  const authFile = path.join(
-    __dirname,
-    `../playwright/.auth/${browserName}/user.json`,
-  );
-
   await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
     await navigation.acceptCookies();
@@ -37,5 +29,11 @@ test("Log in", async ({
     );
   });
 
-  await page.context().storageState({ path: authFile });
+  await test.step("When I click the logout link", async () => {
+    await navigation.logoutLink.click();
+  });
+
+  await test.step("Then I am logged out and returned to the signup / login page", async () => {
+    await expect(homePage.page).toHaveURL(`${process.env.homePage}/login`);
+  });
 });
