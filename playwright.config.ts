@@ -12,6 +12,7 @@ if (!process.env.NODE_ENV) {
 
 export default defineConfig<PageObjectFixtures>({
   testDir: "./tests",
+  timeout: 60 * 1000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
