@@ -42,6 +42,12 @@ export class CartTable {
     };
   }
 
+  /**
+   * Calculate the total for an item based on the price for one unit multiplied by the quantity of the item
+   * @param price the cost of one of the item
+   * @param quantity the number of the item being purchased
+   * @returns the number of the item multiplied by the price for one unit of the item
+   */
   async calculateTotalForItem(
     price: number,
     quantity: number,

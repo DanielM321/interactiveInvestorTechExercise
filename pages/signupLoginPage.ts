@@ -20,12 +20,22 @@ export class SignupLoginPage {
     this.loginButton = page.locator('[data-qa="login-button"]');
   }
 
+  /**
+   * Populate the signup form with the name and email provided and click the signup button
+   * @param name the name to enter into the name field
+   * @param email the email address to enter into the email field
+   */
   async populateSignupForm(name: string, email: string) {
     await this.nameField.fill(name);
     await this.signupEmailField.fill(email);
     await this.signupButton.click();
   }
 
+  /**
+   * Populate the login form with the email and password provided and click the login button
+   * @param email the email address to enter into the email field
+   * @param password the password to enter into the password field
+   */
   async populateLoginForm(email: string, password: string) {
     await this.loginEmailField.fill(email);
     await this.loginPasswordField.fill(password);

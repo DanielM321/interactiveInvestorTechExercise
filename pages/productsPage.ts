@@ -16,6 +16,10 @@ export class ProductsPage {
       .nth(0);
   }
 
+  /**
+   * Enter a product name into the search field and click the submit search button
+   * @param productName The product name you want to search for
+   */
   async searchForProduct(productName: string) {
     await this.searchProductField.fill(productName);
     await this.submitSearchButton.click();

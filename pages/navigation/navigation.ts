@@ -16,6 +16,9 @@ export class Navigation {
     this.cookieConsentButton = page.getByRole("button", { name: "Consent" });
   }
 
+  /**
+   * Click the consent button on the cookie consent banner if it is visible on the page
+   */
   async acceptCookies() {
     if (await this.cookieConsentButton.isVisible()) {
       await this.cookieConsentButton.click();

@@ -15,6 +15,10 @@ export class ProductInfoPage {
     this.addedToCartModal = new CartModal(page);
   }
 
+  /**
+   * Select a quantity of the product using the quantity field and click the add to cart button
+   * @param quantity The number of the item you want to add to the cart
+   */
   async addProductToCart(quantity: string) {
     await this.quantityField.fill(quantity);
     await this.addtoCartButton.click();
