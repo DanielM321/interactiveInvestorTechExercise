@@ -11,7 +11,7 @@ export class HomePage {
   constructor(page: Page) {
     this.page = page;
     this.loggedInUser = page.getByText("Logged in as");
-    this.popupCloseButton = page.getByTestId("dismiss-button-element");
+    this.popupCloseButton = page.locator('[class="continue-prompt-text"]');
   }
 
   /**
