@@ -30,6 +30,9 @@ export default defineConfig<PageObjectFixtures>({
       use: {
         ...devices["Desktop Chrome"],
         productData: productData.testEnv,
+        screenshot: "only-on-failure",
+        video: "on-first-retry",
+        trace: "on-first-retry",
       },
     },
     {
@@ -38,6 +41,9 @@ export default defineConfig<PageObjectFixtures>({
       use: {
         ...devices["Desktop Firefox"],
         productData: productData.testEnv,
+        screenshot: "only-on-failure",
+        video: "on-first-retry",
+        trace: "on-first-retry",
       },
     },
 
@@ -47,6 +53,9 @@ export default defineConfig<PageObjectFixtures>({
       use: {
         ...devices["Desktop Safari"],
         productData: productData.testEnv,
+        screenshot: "only-on-failure",
+        video: "on-first-retry",
+        trace: "on-first-retry",
       },
     },
   ],
