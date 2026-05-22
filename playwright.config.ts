@@ -2,6 +2,14 @@ import { defineConfig, devices } from "@playwright/test";
 import { PageObjectFixtures } from "./Fixtures/PageObjectFixtures";
 import { productData } from "./data";
 
+if (!process.env.NODE_ENV) {
+  require("dotenv").config({ path: `${__dirname}//envs//.env.test` });
+} else {
+  require("dotenv").config({
+    path: `${__dirname}//envs//.env.${process.env.NODE_ENV}`,
+  });
+}
+
 export default defineConfig<PageObjectFixtures>({
   testDir: "./tests",
   fullyParallel: true,

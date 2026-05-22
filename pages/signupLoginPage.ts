@@ -22,4 +22,10 @@ export class SignupLoginPage {
     await this.signupEmailField.fill(email);
     await this.signupButton.click();
   }
+
+  async populateLoginForm(email: string, password: string) {
+    await this.loginEmailField.fill(email);
+    await this.loginPasswordField.fill(password);
+    await this.loginButton.click();
+  }
 }

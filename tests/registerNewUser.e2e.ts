@@ -26,7 +26,7 @@ test("Register New User", async ({
     );
   });
 
-  await test.step("Then I should see the enter account information page with name and emailk pre populated", async () => {
+  await test.step("Then I should see the enter account information page with name and email pre populated", async () => {
     await expect(accountInformationPage.nameField).toHaveValue(
       `${randomUser.firstName} ${randomUser.lastName}`,
     );
@@ -73,7 +73,7 @@ test("Register New User", async ({
   });
 
   await test.step("Then I am returned to the home page and I am logged in", async () => {
-    await expect(homePage.page).toHaveURL("https://automationexercise.com/");
+    await expect(homePage.page).toHaveURL(process.env.homePage!);
     await expect(navigation.logoutLink).toBeVisible();
     await expect(homePage.loggedInUser).toHaveText(
       `Logged in as ${randomUser.firstName} ${randomUser.lastName}`,

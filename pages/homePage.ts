@@ -10,6 +10,6 @@ export class HomePage {
   }
 
   async navigateToHomePage() {
-    await this.page.goto("https://automationexercise.com/");
+    await this.page.goto(process.env.homePage!);
   }
 }
