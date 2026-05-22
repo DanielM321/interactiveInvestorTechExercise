@@ -32,11 +32,11 @@ Repository for sharing my solution to the interactive investor technical exercis
 
 Once you have cloned the repo, run the following commands one by one to install dependencies@
 
-1. npx playwright install
-2. npm i @faker-js/faker
-3. npm i date-fns
-4. npm i dotenv
-5. npm install -g win-node-env
+1. npm i @faker-js/faker
+2. npm i date-fns
+3. npm i dotenv
+4. npm install -g win-node-env
+5. npx playwright install
 
 # Running tests locally in playwright test runner
 
