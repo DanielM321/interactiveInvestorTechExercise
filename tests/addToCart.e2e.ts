@@ -40,8 +40,8 @@ test("Search for a product and add to cart", async ({
   });
 
   await test.step("Then I should see the correct product in the cart", async () => {
-    const cartItemDetails = await cartPage.getCartItemDetails();
-    const expectedTotal = await cartPage.calculateTotalForItem(
+    const cartItemDetails = await cartPage.cartTable.getCartItemDetails();
+    const expectedTotal = await cartPage.cartTable.calculateTotalForItem(
       productData.productPrice,
       productQuantity,
     );

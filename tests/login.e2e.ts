@@ -1,6 +1,10 @@
 import { expect, test } from "../Fixtures/PageObjectFixtures";
 
-test("Login and log out", async ({ homePage, navigation, signupLoginPage }) => {
+test("Log in and log out", async ({
+  homePage,
+  navigation,
+  signupLoginPage,
+}) => {
   await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
     await navigation.acceptCookies();

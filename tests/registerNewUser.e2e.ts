@@ -1,3 +1,4 @@
+import path from "path/win32";
 import { expect, test } from "../Fixtures/PageObjectFixtures";
 import { createRandomUser } from "../helpers/createRandomData";
 
@@ -10,6 +11,12 @@ test("Register New User", async ({
   accountInformationPage,
   accountCreatedPage,
 }) => {
+  // const projectName = process.env.PROJECT_NAME;
+  // const authFile = path.join(
+  //   __dirname,
+  //   `../playwright/.auth/${projectName}/user.json`,
+  // );
+
   await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
     await navigation.acceptCookies();
@@ -79,4 +86,6 @@ test("Register New User", async ({
       `Logged in as ${randomUser.firstName} ${randomUser.lastName}`,
     );
   });
+
+  // await homePage.page.context().storageState({ path: authFile });
 });
