@@ -18,6 +18,16 @@ Repository for sharing my solution to the interactive investor technical exercis
 3. Searching for a product and adding to the cart - Of all of the user journeys that occur for adding an item to the cart, searching for the item first and then adding it to the cart from the search results is what I believe to be the most common workflow to achieve this. Testing this helps verify that users can locate products efficiently
 4. Proceeding to the checkout and paying for the item - Because payments are business critical as well as a high risk area. It is paramount that payments are tested as throughly as possible because any issues with payments could directly impact revuene and client trust.
 
+# Technologies used
+
+- Playwright
+- Typescript
+- npm faker
+- npm date-fns
+- npm dotenv
+- npm win-node-env
+- github actions
+
 # Pre requisites for running locally
 
 Once you have cloned the repo, run the following commands one by one to install dependencies@
