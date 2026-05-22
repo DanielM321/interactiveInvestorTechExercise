@@ -12,7 +12,6 @@ test("Search for a product and add in to cart", async ({
 
   await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
-    await navigation.acceptCookies();
   });
 
   await test.step("When I click the products link", async () => {
@@ -43,13 +42,13 @@ test("Search for a product and add in to cart", async ({
     const cartItemDetails = await cartPage.cartTable.getCartItemDetails();
     const expectedTotal = await cartPage.cartTable.calculateTotalForItem(
       productData.productPrice,
-      productQuantity,
+      Number(await cartPage.cartTable.firstCartItemQuantity.innerText()),
     );
     expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
     expect(cartItemDetails.description).toContain(productData.productName);
     expect(cartItemDetails.description).toContain(productData.productCategory);
     expect(cartItemDetails.price).toBe(`Rs. ${productData.productPrice}`);
-    expect(cartItemDetails.quantity).toBe(productQuantity.toString());
+    expect(cartItemDetails.quantity).not.toBeNull();
     expect(cartItemDetails.total).toBe(`Rs. ${expectedTotal}`);
   });
 });

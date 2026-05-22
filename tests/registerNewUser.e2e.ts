@@ -12,7 +12,6 @@ test("Register New User", async ({
 }) => {
   await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
-    await navigation.acceptCookies();
   });
 
   await test.step("When I click the logout link", async () => {

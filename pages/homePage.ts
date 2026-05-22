@@ -6,10 +6,12 @@ import { Locator, Page } from "@playwright/test";
 export class HomePage {
   readonly page: Page;
   readonly loggedInUser: Locator;
+  readonly popupCloseButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.loggedInUser = page.getByText("Logged in as");
+    this.popupCloseButton = page.getByTestId("dismiss-button-element");
   }
 
   /**
