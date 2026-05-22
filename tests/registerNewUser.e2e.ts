@@ -1,4 +1,3 @@
-import path from "path/win32";
 import { expect, test } from "../Fixtures/PageObjectFixtures";
 import { createRandomUser } from "../helpers/createRandomData";
 
@@ -14,6 +13,14 @@ test("Register New User", async ({
   await test.step("Given I navigate to Home page", async () => {
     await homePage.navigateToHomePage();
     await navigation.acceptCookies();
+  });
+
+  await test.step("When I click the logout link", async () => {
+    await navigation.logoutLink.click();
+  });
+
+  await test.step("Then I am logged out and returned to the signup / login page", async () => {
+    await expect(homePage.page).toHaveURL(`${process.env.homePage}/login`);
   });
 
   await test.step("When I click the signup/login link and populate", async () => {
