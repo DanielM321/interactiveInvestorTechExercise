@@ -40,6 +40,9 @@ jobs:
       - name: Run All Playwright tests after merge
         run: npx playwright test --workers=4 --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
         if: github.event_name == 'push'
+      - name: Run All Playwright tests on schedule
+        run: npx playwright test --workers=4 --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        if: github.event_name == 'schedule'
       #Create playwright report in each shard
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
